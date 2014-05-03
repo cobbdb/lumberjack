@@ -3,7 +3,7 @@
   "description": "Plugable front-end logging.",
   "main": "src/lumberjack.js",
   "scripts": {
-    "test": "grunt jasmine"
+    "test": "grunt jasmine:dist"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,8 @@
   "homepage": "https://github.com/cobbdb/lumberjack",
   "devDependencies": {
     "grunt": "~0.4.4",
-    "grunt-contrib-uglify": "~0.4.0"
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-jasmine": "~0.6.4",
+    "grunt-docker-clone": "~1.0.6"
   }
 }

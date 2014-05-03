@@ -54,10 +54,21 @@ window.Lumberjack = function () {
      * ## log.readback(event)
      * Fetch the log of an event.
      * @param {String} event A string describing this event.
+     * @return {Array} This event's current record.
+     *
+     * ## log.readback(event, pretty)
+     * Fetch the log of an event.
+     * @param {String} event A string describing this event.
+     * @param {Boolean} pretty True to return string of record.
      * @return {String} A formatted string of this event's log.
      */
-    log.readback = function (event) {
-        var output = JSON.stringify(record[event], null, 4);
+    log.readback = function (event, pretty) {
+        var output;
+        if (pretty) {
+            output = JSON.stringify(record[event], null, 4);
+        } else {
+            output = record[event];
+        }
         console.log(output);
         return output;
     };
