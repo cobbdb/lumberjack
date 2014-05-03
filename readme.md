@@ -6,17 +6,20 @@ Plugable front-end logging.
 
 -------------
 ### Creating a new Lumberjack
-By default the selector will match elements that are at least partially showing in the viewport.
+Create one master instance if you'd like, or many instances for each system.
 
     var log = Lumberjack();
 
 ### Log some information
-The selector can be used with .is() to test if an element is or is not in range of the viewport.
+Each log entry is tied to a channel and is created on the fly. This data
+can be an Object, String, Number, or Boolean.
 
     log('signin', 'User has finished signing in.');
 
 ### Attach some callbacks
-Callbacks can be attached to logging events for your analytics tools.
+You can attach side-effects to your log channels for analytics tools.
+The data object is whatever data gets logged when the event trips.
+You can even attach multiple callbacks to the same channel.
 
     log.on('contentload', function (data) {
         analytics.report(data);
@@ -32,6 +35,7 @@ Define your behavior once and trigger it multiple times.
 
 ### Debug a subsystem
 Get the logging information you care about with timestamps of when it happened.
+Every log entry has a timestamp so you can tell when events happened.
 
     log.readback('gallery');
 

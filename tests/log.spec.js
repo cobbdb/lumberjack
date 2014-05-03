@@ -93,6 +93,50 @@ describe('Lumberjack()', function () {
         });
     });
 
+    describe('log.off()', function () {
+        it('requires an event string', function () {
+            expect(function () {
+                log.off();
+            }).toThrowError();
+            expect(function () {
+                log.off({});
+            }).toThrowError();
+            expect(function () {
+                log.off('lkj');
+            }).not.toThrowError();
+        });
+        it('strips all callbacks from an event', function () {
+            var spy = jasmine.createSpy('eventSpy');
+            log.on('testevent', function (data) {
+                spy('123abc');
+            });
+            log('testevent', {});
+            expect(spy.calls.count()).toEqual(1);
+            log.off('testevent');
+            log('testevent', true);
+            expect(spy.calls.count()).toEqual(1);
+        });
+        it('strips the right callbacks', function () {
+            var spy1 = jasmine.createSpy('eventSpy1');
+            var spy2 = jasmine.createSpy('eventSpy2');
+            log.on('testevent1', function (data) {
+                spy1('123abc');
+            });
+            log.on('testevent2', function (data) {
+                spy2('456abc');
+            });
+            log('testevent1', {});
+            log('testevent2', {});
+            expect(spy1.calls.count()).toEqual(1);
+            expect(spy2.calls.count()).toEqual(1);
+            log.off('testevent1');
+            log('testevent1', true);
+            log('testevent2', true);
+            expect(spy1.calls.count()).toEqual(1);
+            expect(spy2.calls.count()).toEqual(2);
+        });
+    });
+
     describe('log.readback()', function () {
         it('requires an event string', function () {
             expect(function () {

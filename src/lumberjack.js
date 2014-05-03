@@ -57,7 +57,7 @@ window.Lumberjack = function () {
         throw Error('log.readback(event, pretty) requires an event {String}.');
     };
     /**
-     * ## log.addListener(event, cb)
+     * ## log.on(event, cb)
      * Attach a callback to run anytime a metric is logged.
      * @param {String} event A string describing this event.
      * @param {Function} cb The callback.
@@ -70,6 +70,19 @@ window.Lumberjack = function () {
             cbQueue[event].push(cb);
         } else {
             throw Error('log.on(event, cb) requires an event {String} and a callback {Function}.');
+        }
+    };
+    /**
+     * ## log.off(event)
+     * Disable side-effects for a given event.
+     * @param {String} event A string describing this event.
+     */
+    log.off = function (event) {
+        var eventValid = typeof event === 'string';
+        if (eventValid) {
+            cbQueue[event] = [];
+        } else {
+            throw Error('log.off(event) requires an event {String}.');
         }
     };
     return log;
