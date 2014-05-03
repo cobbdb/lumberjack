@@ -1,6 +1,5 @@
 {
   "name": "lumberjack",
-  "version": "1.0.0",
   "description": "Plugable front-end logging.",
   "main": "src/lumberjack.js",
   "scripts": {
@@ -27,5 +26,9 @@
   "bugs": {
     "url": "https://github.com/cobbdb/lumberjack/issues"
   },
-  "homepage": "https://github.com/cobbdb/lumberjack"
+  "homepage": "https://github.com/cobbdb/lumberjack",
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-uglify": "~0.4.0"
+  }
 }

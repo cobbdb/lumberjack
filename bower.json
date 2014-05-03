@@ -1,6 +1,5 @@
 {
   "name": "lumberjack",
-  "version": "1.0.0",
   "authors": [
     "cobbdb <cobbdb@gmail.com>"
   ],
@@ -10,8 +9,16 @@
     "globals"
   ],
   "keywords": [
-    "this",
-    "that"
+    "logging",
+    "front-end",
+    "javascript",
+    "js",
+    "logger",
+    "reporting",
+    "eventing",
+    "callbacks",
+    "simple",
+    "plugable"
   ],
   "license": "MIT",
   "homepage": "http://cobbdb.github.io/lumberjack/",
