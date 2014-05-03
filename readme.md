@@ -1,4 +1,4 @@
-# near-viewport [![Bower version](https://badge.fury.io/bo/lumberjack.svg)](http://badge.fury.io/bo/lumberjack) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+# Lumberjack [![Bower version](https://badge.fury.io/bo/lumberjack.svg)](http://badge.fury.io/bo/lumberjack) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 Plugable front-end logging.
 
