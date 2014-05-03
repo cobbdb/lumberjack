@@ -2,36 +2,25 @@
  * # Lumberjack
  * Plugable front-end logging.
  * @return {Object} A new Lumberjack.
+ * @see GitHub-Page http://github.com/cobbdb/lumberjack 
  */
 window.Lumberjack = function () {
-    var noisy, log;
+    var log;
     var record = {};
     var cbQueue = {};
-
-    // Stub the console object for older browsers.
-    console = console || {
-        log: function () {}
-    };
-
-    try {
-        // ### Noisy logging updates the console in real time.
-        // This value is truthy, but just run
-        // ```delete localStorage.noisy``` to disable.
-        noisy = localStorage.noisy;
-    } catch (err) {
-        // This browser does not have localStorage.
-        noisy = false;
-    }
 
     /**
      * ## log(event, data)
      * Record a log entry for an event.
      * @param {String} event A string describing this event.
-     * @param {String|Object|Number} data Some data to log.
+     * @param {String|Object|Number|Boolean} data Some data to log.
      */
     log = function (event, data) {
         var i, len, entry;
-        if (typeof event !== 'undefined') {
+        var eventValid = typeof event === 'string';
+        var dataType = typeof data;
+        var dataValid = dataType !== 'undefined' && dataType !== 'function';
+        if (eventValid && dataValid) {
             entry = {
                 time: new Date(),
                 data: data
@@ -44,11 +33,11 @@ window.Lumberjack = function () {
             cbQueue[event] = cbQueue[event] || [];
             len = cbQueue[event].length;
             for (i = 0; i < len; i += 1) {
-                cbQueue[i](data);
+                cbQueue[event][i](data);
             }
-            return entry;
+        } else {
+            throw Error('Lumberjack Error: log(event, data) requires an event {String} and a payload {String|Object|Number|Boolean}.');
         }
-        throw Error('Lumberjack Error: log(event) requires an event string.');
     };
     /**
      * ## log.readback(event)
@@ -63,14 +52,14 @@ window.Lumberjack = function () {
      * @return {String} A formatted string of this event's log.
      */
     log.readback = function (event, pretty) {
-        var output;
-        if (pretty) {
-            output = JSON.stringify(record[event], null, 4);
-        } else {
-            output = record[event];
+        var eventValid = typeof event === 'string';
+        if (eventValid) {
+            if (pretty) {
+                return JSON.stringify(record[event], null, 4);
+            }
+            return record[event];
         }
-        console.log(output);
-        return output;
+        throw Error('log.readback(event, pretty) requires an event {String}.');
     };
     /**
      * ## log.addListener(event, cb)
@@ -79,8 +68,14 @@ window.Lumberjack = function () {
      * @param {Function} cb The callback.
      */
     log.on = function (event, cb) {
-        cbQueue[event] = cbQueue[event] || [];
-        cbQueue[event].push(cb);
+        var eventValid = typeof event === 'string';
+        var cbValid = typeof cb === 'function';
+        if (eventValid && cbValid) {
+            cbQueue[event] = cbQueue[event] || [];
+            cbQueue[event].push(cb);
+        } else {
+            throw Error('log.on(event, cb) requires an event {String} and a callback {Function}.');
+        }
     };
     return log;
 };

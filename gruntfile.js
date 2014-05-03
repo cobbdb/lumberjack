@@ -7,10 +7,9 @@ module.exports = function (grunt) {
                 }
             }
         },
-        'docker-clone': {
-            build: {
-                branch: 'gh-pages',
-                dir: 'src'
+        exec: {
+            docs: {
+                cmd: 'docker -i src -o docs-clone'
             }
         },
         jasmine: {
@@ -28,7 +27,7 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
-    grunt.loadNpmTasks('grunt-docker-clone');
+    grunt.loadNpmTasks('grunt-exec');
 
     grunt.registerTask('default', [
         'uglify',
@@ -36,6 +35,6 @@ module.exports = function (grunt) {
     ]);
     grunt.registerTask('build', [
         'default',
-        'docker-clone'
+        'exec:docs'
     ]);
 };
