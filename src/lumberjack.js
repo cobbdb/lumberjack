@@ -43,7 +43,7 @@ window.Lumberjack = function () {
      * ## log.readback(event, [pretty])
      * Fetch the log of an event.
      * @param {String} event A string describing this event.
-     * @param {Boolean} pretty True to create a formatted string result.
+     * @param {Boolean} [pretty] True to create a formatted string result.
      * @return {Array|String} This event's current record.
      */
     log.readback = function (event, pretty) {
