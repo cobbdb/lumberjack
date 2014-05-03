@@ -160,5 +160,25 @@ describe('Lumberjack()', function () {
             var out = log.readback('test');
             expect(out[0].data).toEqual('value');
         });
+        describe('log.readback.master()', function () {
+            it('works with no entries', function () {
+                var out = log.readback.master();
+                expect(out).toEqual([]);
+            });
+            it('returns events in order', function () {
+                log('test', 123);
+                log('test', 'abc');
+                var out = log.readback.master();
+                expect(out[0].data).toEqual(123);
+                expect(out[1].data).toEqual('abc');
+            });
+            it('returns events from all channels', function () {
+                log('test1', 123);
+                log('test2', 'abc');
+                var out = log.readback.master();
+                expect(out[0].channel).toEqual('test1');
+                expect(out[1].channel).toEqual('test2');
+            });
+        });
     });
 });
