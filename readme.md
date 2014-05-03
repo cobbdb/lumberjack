@@ -39,6 +39,11 @@ Every log entry has a timestamp so you can tell when events happened.
 
     log.readback('gallery');
 
+### Remove side-effects
+You can disable all existing callbacks for a single channel.
+
+    log.off('scroll');
+
 ---------
 * See: http://cobbdb.github.io/lumberjack/
 * See: http://github.com/cobbdb/lumberjack
