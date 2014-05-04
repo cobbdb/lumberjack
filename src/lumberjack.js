@@ -2,7 +2,7 @@
  * # Lumberjack
  * Plugable front-end logging.
  * @return {Object} A new Lumberjack.
- * @see GitHub-Page http://github.com/cobbdb/lumberjack 
+ * @see GitHub-Page http://github.com/cobbdb/lumberjack
  */
 window.Lumberjack = function () {
     var log;
@@ -26,9 +26,10 @@ window.Lumberjack = function () {
              * All log entries take the form of:
              * ```js
              *  {
-             *      time: // current timestamp
+             *      time: // timestamp when entry was logged
              *      data: // the logged data
-             *      channel: // master record tracks the channel
+             *      channel: // channel of entry
+             *      id: // id of entry in master record
              *  }
              * ```
              */

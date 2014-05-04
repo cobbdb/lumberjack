@@ -5,18 +5,18 @@ Plugable front-end logging.
     $ bower install lumberjack
 
 -------------
-### Creating a new Lumberjack
+#### Creating a new Lumberjack
 Create one master instance if you'd like, or many instances for each system.
 
     var log = Lumberjack();
 
-### Log some information
+#### Log some information
 Each log entry is tied to a channel and is created on the fly. This data
 can be an Object, String, Number, or Boolean.
 
     log('signin', 'User has finished signing in.');
 
-### Attach some callbacks
+#### Attach some callbacks
 You can attach side-effects to your log channels for analytics tools.
 The data object is whatever data gets logged when the event trips.
 You can even attach multiple callbacks to the same channel.
@@ -25,7 +25,7 @@ You can even attach multiple callbacks to the same channel.
         analytics.report(data);
     });
 
-### Trigger events
+#### Trigger events
 Define your behavior once and trigger it multiple times.
 
     log('contentload', {
@@ -33,16 +33,32 @@ Define your behavior once and trigger it multiple times.
         speed: 851
     });
 
-### Debug a subsystem
+#### Debug a subsystem
 Get the logging information you care about with timestamps of when it happened.
 Every log entry has a timestamp so you can tell when events happened.
 
     log.readback('gallery');
 
-### Remove side-effects
+#### View all events in order
+The master record contains all log entries in order.
+
+    log.readback.master();
+
+#### Remove side-effects
 You can disable all existing callbacks for a single channel.
 
     log.off('scroll');
+
+#### Analyzing entries
+All log entries take the form:
+```js
+{
+    time: // timestamp when entry was logged
+    data: // the logged data
+    channel: // channel of entry
+    id: // id of entry in master record
+}
+```
 
 ---------
 * See: http://cobbdb.github.io/lumberjack/
