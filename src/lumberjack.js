@@ -36,13 +36,10 @@ window.Lumberjack = function () {
                 time: new Date(),
                 data: data,
                 channel: channel,
-                id: {
-                    master: master.length
-                }
+                id: master.length
             };
             // Record the channel.
             record[channel] = record[channel] || []
-            entry.id.channel = record[channel].length;
             record[channel].push(entry);
             master.push(entry);
 
