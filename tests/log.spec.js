@@ -160,6 +160,14 @@ describe('Lumberjack()', function () {
             var out = log.readback('test');
             expect(out[0].data).toEqual('value');
         });
+        it('ids each channel entry', function () {
+            log('testchan', 123);
+            log('otherchan', false);
+            log('testchan', 'abc');
+            var out = log.readback('testchan');
+            expect(out[0].id.channel).toEqual(0);
+            expect(out[1].id.channel).toEqual(1);
+        });
         describe('log.readback.master()', function () {
             it('works with no entries', function () {
                 var out = log.readback.master();
@@ -178,6 +186,13 @@ describe('Lumberjack()', function () {
                 var out = log.readback.master();
                 expect(out[0].channel).toEqual('test1');
                 expect(out[1].channel).toEqual('test2');
+            });
+            it('ids each entry', function () {
+                log('test1', 123);
+                log('test2', 'abc');
+                var out = log.readback.master();
+                expect(out[0].id.master).toEqual(0);
+                expect(out[1].id.master).toEqual(1);
             });
         });
     });

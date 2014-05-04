@@ -34,14 +34,16 @@ window.Lumberjack = function () {
              */
             entry = {
                 time: new Date(),
-                data: data
+                data: data,
+                channel: channel,
+                id: {
+                    master: master.length
+                }
             };
             // Record the channel.
             record[channel] = record[channel] || []
+            entry.id.channel = record[channel].length;
             record[channel].push(entry);
-
-            // Attach channel info and add to master record.
-            entry.channel = channel;
             master.push(entry);
 
             // Perform any attached callbacks.
