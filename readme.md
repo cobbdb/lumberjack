@@ -1,4 +1,4 @@
-<img src="img/lumberjack-logo.png" style="float:right" alt="Lumberjack"/>
+[![Lumberjack](http://i.imgur.com/d0rKge1.png)](https://cobbdb.github.io/lumberjack)
 
 [![Bower version](https://badge.fury.io/bo/lumberjack.svg)](http://badge.fury.io/bo/lumberjack) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
