@@ -40,11 +40,13 @@ Get the logging information you care about with timestamps of when it happened.
 Every log entry has a timestamp so you can tell when events happened.
 
     log.readback('gallery');
+    log.readback('gallery', true); // Pretty-print
 
 #### View all events in order
 The master record contains all log entries in order.
 
     log.readback.master();
+    log.readback.master(true); // Pretty-print
 
 #### Remove side-effects
 You can disable all existing callbacks for a single channel.
