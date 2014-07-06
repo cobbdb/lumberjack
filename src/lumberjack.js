@@ -17,7 +17,7 @@ window.Lumberjack = function () {
      * @param {String|Object|Number|Boolean} data Some data to log.
      */
     log = function (channel, data) {
-        var i, len, channel;
+        var i, len, channel, entry;
         var channelValid = typeof channel === 'string';
         var dataType = typeof data;
         var dataValid = dataType !== 'undefined' && dataType !== 'function';

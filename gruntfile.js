@@ -25,9 +25,11 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
-    grunt.loadNpmTasks('grunt-exec');
+    // Load all grunt NPM tasks.
+    require('matchdep').filterDev([
+        'grunt-*',
+        '!grunt-template-*'
+    ]).forEach(grunt.loadNpmTasks);
 
     grunt.registerTask('default', [
         'uglify',
