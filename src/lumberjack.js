@@ -9,6 +9,7 @@ window.Lumberjack = function () {
     var record = {};
     var cbQueue = {};
     var master = [];
+    var ls = localStorage || {};
 
     /**
      * ## log(channel, data)
@@ -21,6 +22,10 @@ window.Lumberjack = function () {
         var channelValid = typeof channel === 'string';
         var dataType = typeof data;
         var dataValid = dataType !== 'undefined' && dataType !== 'function';
+        if (ls.lumberjack !== 'on') {
+            // Do nothing unless enabled.
+            return;
+        }
         if (channelValid && dataValid) {
             /**
              * All log entries take the form of:

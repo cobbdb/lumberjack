@@ -2,6 +2,7 @@ describe('Lumberjack()', function () {
     var log;
     beforeEach(function () {
         log = Lumberjack();
+        localStorage.lumberjack = 'on';
     });
 
     it('can have multiple instances', function () {
@@ -187,6 +188,15 @@ describe('Lumberjack()', function () {
                 expect(out[0].id).toEqual(0);
                 expect(out[2].id).toEqual(2);
             });
+        });
+    });
+
+    describe('localStorage control', function () {
+        it('does nothing when off', function () {
+            localStorage.lumberjack = 'garbage';
+            log('test', 321);
+            var out = log.readback.master();
+            expect(out).toEqual([]);
         });
     });
 });

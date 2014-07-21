@@ -14,7 +14,8 @@ module.exports = function (grunt) {
         },
         jasmine: {
             options: {
-                specs: 'tests/*.spec.js'
+                specs: 'tests/*.spec.js',
+                helpers: 'tests/*.helper.js'
             },
             raw: {
                 src: 'src/lumberjack.js'
@@ -32,6 +33,7 @@ module.exports = function (grunt) {
     ]).forEach(grunt.loadNpmTasks);
 
     grunt.registerTask('default', [
+        'jasmine:raw',
         'uglify',
         'jasmine:dist'
     ]);
