@@ -12,6 +12,12 @@ Create one master instance if you'd like, or many instances for each system.
 
     var log = Lumberjack();
 
+#### Enable logging
+Logging is off by default to avoid memory leaks and so you can control when logs
+begin and end. Update localStorage manually in the browser console.
+
+    localStorage.lumberjack = 'on';
+
 #### Log some information
 Each log entry is tied to a channel and is created on the fly. This data
 can be an Object, String, Number, or Boolean.
