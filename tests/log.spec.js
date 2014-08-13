@@ -191,12 +191,33 @@ describe('Lumberjack()', function () {
         });
     });
 
-    describe('localStorage control', function () {
-        it('does nothing when off', function () {
+    describe('logging control', function () {
+        it('does nothing when disabled', function () {
             localStorage.lumberjack = 'garbage';
             log('test', 321);
             var out = log.readback.master();
             expect(out).toEqual([]);
+        });
+        it('can be overridden with enabled option', function () {
+            var log = Lumberjack(true);
+            localStorage.lumberjack = 'garbage';
+            log('testchan', 'abc123');
+            var out = log.readback.master();
+            expect(out[0].channel).toEqual('testchan');
+        });
+        it('can be overridden with localStorage setting', function () {
+            var log = Lumberjack();
+            localStorage.lumberjack = 'on';
+            log('tester', 'abc123');
+            var out = log.readback.master();
+            expect(out[0].channel).toEqual('tester');
+        });
+        it('can be enabled with both settings enabled', function () {
+            var log = Lumberjack(true);
+            localStorage.lumberjack = 'on';
+            log('tester', 'abc123');
+            var out = log.readback.master();
+            expect(out[0].channel).toEqual('tester');
         });
     });
 });

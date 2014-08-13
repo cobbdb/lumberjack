@@ -1,10 +1,12 @@
 /**
  * # Lumberjack
- * Plugable front-end logging.
+ * Set `localStorage.lumberjack` to `on` to enable logging.
+ * @param {Boolean} enabled True to force logging regardless of
+ * the localStorage setting.
  * @return {Object} A new Lumberjack.
  * @see GitHub-Page http://github.com/cobbdb/lumberjack
  */
-window.Lumberjack = function () {
+window.Lumberjack = function (enabled) {
     var log;
     var record = {};
     var cbQueue = {};
@@ -22,7 +24,7 @@ window.Lumberjack = function () {
         var channelValid = typeof channel === 'string';
         var dataType = typeof data;
         var dataValid = dataType !== 'undefined' && dataType !== 'function';
-        if (ls.lumberjack !== 'on') {
+        if (ls.lumberjack !== 'on' && !enabled) {
             // Do nothing unless enabled.
             return;
         }

@@ -14,9 +14,13 @@ Create one master instance if you'd like, or many instances for each system.
 
 #### Enable logging
 Logging is off by default to avoid memory leaks and so you can control when logs
-begin and end. Update localStorage manually in the browser console.
+begin and end. Update localStorage manually in the browser console...
 
     localStorage.lumberjack = 'on';
+
+.. or force logging always enabled by using the `enabled` setting.
+
+    var log = Lumberjack(true);
 
 #### Log some information
 Each log entry is tied to a channel and is created on the fly. This data
