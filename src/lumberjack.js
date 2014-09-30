@@ -74,7 +74,7 @@ window.Lumberjack = function (enabled) {
             if (pretty) {
                 return JSON.stringify(record[channel], null, 4);
             }
-            return record[channel];
+            return record[channel] || [];
         }
         throw Error('log.readback(channel, pretty) requires an channel {String}.');
     };

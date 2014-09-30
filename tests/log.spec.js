@@ -161,6 +161,10 @@ describe('Lumberjack()', function () {
             var out = log.readback('test');
             expect(out[0].data).toEqual('value');
         });
+        it('returns empty for invalid channel name', function () {
+            var out = log.readback('not-here');
+            expect(out).toEqual([]);
+        });
         describe('log.readback.master()', function () {
             it('works with no entries', function () {
                 var out = log.readback.master();
