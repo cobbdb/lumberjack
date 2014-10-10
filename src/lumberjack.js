@@ -91,6 +91,19 @@ window.Lumberjack = function (enabled) {
         return master;
     };
     /**
+     * ## log.readback.channels([pretty])
+     * Fetch list of log channels currently in use.
+     * @param {Boolean} [pretty] True to create a formatted string result.
+     * @return {Array|String} This log's set of used channels.
+     */
+    log.readback.channels = function (pretty) {
+        var keys = Object.keys(record);
+        if (pretty) {
+            return JSON.stringify(keys);
+        }
+        return keys;
+    };
+    /**
      * ## log.on(channel, cb)
      * Attach a callback to run anytime a channel is logged to.
      * @param {String} channel A string describing this channel.

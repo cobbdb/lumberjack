@@ -165,6 +165,26 @@ describe('Lumberjack()', function () {
             var out = log.readback('not-here');
             expect(out).toEqual([]);
         });
+        describe('log.readback.channels()', function () {
+            it('returns empty for new logs', function () {
+                expect(log.readback.channels().length).toEqual(0);
+            });
+            it('returns array of channel names', function () {
+                log('testA', 'messageA');
+                log('testB', 'messageB');
+                var list = log.readback.channels();
+                expect(list.length).toEqual(2);
+                expect(list[0]).toEqual('testA');
+                expect(list[1]).toEqual('testB');
+            });
+            it('can pretty print names', function () {
+                log('testA', 'messageA');
+                log('testB', 'messageB');
+                var list = log.readback.channels(true);
+                expect(list.length).toBeGreaterThan(0);
+                expect(typeof list).toEqual('string');
+            });
+        });
         describe('log.readback.master()', function () {
             it('works with no entries', function () {
                 var out = log.readback.master();
@@ -191,6 +211,13 @@ describe('Lumberjack()', function () {
                 var out = log.readback.master();
                 expect(out[0].id).toEqual(0);
                 expect(out[2].id).toEqual(2);
+            });
+            it('can pretty print logs', function () {
+                log('testA', 'messageA');
+                log('testB', 'messageB');
+                var res = log.readback.master(true);
+                expect(res.length).toBeGreaterThan(0);
+                expect(typeof res).toEqual('string');
             });
         });
     });

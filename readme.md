@@ -52,6 +52,11 @@ Every log entry has a timestamp so you can tell when events happened.
     log.readback('gallery');
     log.readback('gallery', true); // Pretty-print
 
+Quickly check on what log channels are in use.
+
+    log.readback.channels(); // Array of channel names
+    log.readback.channels(true); // Pretty-print
+
 #### View all events in order
 The master record contains all log entries in order.
 
