@@ -223,6 +223,15 @@ describe('Lumberjack()', function () {
     });
 
     describe('logging control', function () {
+        beforeEach(function () {
+            localStorage.lumberjack = 'abcd';
+        });
+        it('is disabled by default', function () {
+            var log = Lumberjack();
+            log('test', '321abc');
+            var out = log.readback.master();
+            expect(out).toEqual([]);
+        });
         it('does nothing when disabled', function () {
             localStorage.lumberjack = 'garbage';
             log('test', 321);
@@ -249,6 +258,29 @@ describe('Lumberjack()', function () {
             log('tester', 'abc123');
             var out = log.readback.master();
             expect(out[0].channel).toEqual('tester');
+        });
+        it('can be enabled on the fly', function () {
+            var out, log = Lumberjack();
+            log('test', '321abc');
+            out = log.readback.master();
+            expect(out.length).toEqual(0);
+
+            log.enable();
+            log('test', '321abc');
+            log('test', '123abc');
+            out = log.readback.master();
+            expect(out.length).toEqual(2);
+        });
+        it('can be disabled on the fly', function () {
+            var out, log = Lumberjack(true);
+            log('test', '321abc');
+            out = log.readback.master();
+            expect(out.length).toEqual(1);
+
+            log.disable();
+            log('test', '321abc');
+            out = log.readback.master();
+            expect(out.length).toEqual(1);
         });
     });
 });

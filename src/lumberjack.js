@@ -61,6 +61,7 @@ module.exports = function (enabled) {
             throw Error('Lumberjack Error: log(channel, data) requires an channel {String} and a payload {String|Object|Number|Boolean}.');
         }
     };
+
     /**
      * ## log.readback(channel, [pretty])
      * Fetch the log of an channel.
@@ -78,6 +79,7 @@ module.exports = function (enabled) {
         }
         throw Error('log.readback(channel, pretty) requires an channel {String}.');
     };
+
     /**
      * ## log.readback.master([pretty])
      * Get a full readback of all channels' entries.
@@ -90,6 +92,7 @@ module.exports = function (enabled) {
         }
         return master;
     };
+
     /**
      * ## log.readback.channels([pretty])
      * Fetch list of log channels currently in use.
@@ -103,6 +106,7 @@ module.exports = function (enabled) {
         }
         return keys;
     };
+
     /**
      * ## log.on(channel, cb)
      * Attach a callback to run anytime a channel is logged to.
@@ -119,6 +123,7 @@ module.exports = function (enabled) {
             throw Error('log.on(channel, cb) requires an channel {String} and a callback {Function}.');
         }
     };
+
     /**
      * ## log.off(channel)
      * Disable side-effects for a given channel.
@@ -132,5 +137,22 @@ module.exports = function (enabled) {
             throw Error('log.off(channel) requires an channel {String}.');
         }
     };
+
+    /**
+     * ## log.enable()
+     * Activate logging regardless of previous settings.
+     */
+    log.enable = function () {
+        enabled = true;
+    };
+
+    /**
+     * ## log.disable()
+     * Force logging off.
+     */
+    log.disable = function () {
+        enabled = false;
+    };
+
     return log;
 };
