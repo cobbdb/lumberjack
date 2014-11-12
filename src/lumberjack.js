@@ -11,7 +11,7 @@ module.exports = function (enabled) {
         record = {},
         cbQueue = {},
         master = [],
-        ls = localStorage || {};
+        ls = global.localStorage || {};
 
     /**
      * ## log(channel, data)
