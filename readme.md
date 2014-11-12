@@ -1,6 +1,6 @@
 [![Lumberjack](http://i.imgur.com/d0rKge1.png)](https://cobbdb.github.io/lumberjack)
 
-[![Bower version](https://badge.fury.io/bo/lumberjack.svg)](http://badge.fury.io/bo/lumberjack)
+[![Bower version](https://badge.fury.io/bo/lumberjack.svg)](http://badge.fury.io/bo/lumberjack) [![NPM version](https://badge.fury.io/js/lumberjackjs.svg)](http://badge.fury.io/js/lumberjackjs)
 
 Plugable front-end logging.
 

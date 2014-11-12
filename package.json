@@ -1,9 +1,10 @@
 {
-  "name": "lumberjack",
+  "name": "lumberjackjs",
+  "version": "1.0.12",
   "description": "Plugable front-end logging.",
-  "main": "src/lumberjack.js",
+  "main": "dist/module/lumberjack.js",
   "scripts": {
-    "test": "grunt jasmine:dist"
+    "test": "grunt jasmine:global"
   },
   "repository": {
     "type": "git",
@@ -28,10 +29,10 @@
   },
   "homepage": "https://github.com/cobbdb/lumberjack",
   "devDependencies": {
-    "grunt": "~0.4.4",
-    "grunt-contrib-uglify": "~0.4.0",
-    "grunt-contrib-jasmine": "~0.6.4",
-    "grunt-exec": "~0.4.5",
-    "matchdep": "~0.3.0"
+    "grunt": "~0.4.5",
+    "grunt-browserify": "^3.2.0",
+    "grunt-contrib-jasmine": "~0.8.1",
+    "grunt-contrib-uglify": "~0.6.0",
+    "matchdep": "^0.3.0"
   }
 }
