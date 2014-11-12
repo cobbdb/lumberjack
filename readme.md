@@ -10,68 +10,79 @@ Plugable JavaScript logging.
 -------------
 #### Creating a new Lumberjack
 Create one master instance if you'd like, or many instances for each system.
-
-    var log = Lumberjack();
+```javascript
+var log = Lumberjack();
+```
 
 #### Enable logging
-Logging is off by default to avoid memory leaks and so you can control when logs
-begin and end. Update localStorage manually in the browser console...
-
-    localStorage.lumberjack = 'on';
-
-.. or force logging always enabled by using the `enabled` setting.
-
-    var log = Lumberjack(true);
+Logging is off by default to avoid memory leaks and conserve script performance.
+There are several options to control logging:
+```javascript
+// Update localStorage then refresh the page..
+localStorage.lumberjack = 'on';
+// ..or force logging on when creating a new instance..
+var log = Lumberjack(true);
+// ..or turn logging on/off during runtime.
+log.enable();
+log.disable();
+```
 
 #### Log some information
 Each log entry is tied to a channel and is created on the fly. This data
 can be an Object, String, Number, or Boolean.
-
-    log('signin', 'User has finished signing in.');
+```javascript
+log('signin', 'User has finished signing in.');
+```
 
 #### Attach some callbacks
 You can attach side-effects to your log channels for analytics tools.
 The data object is whatever data gets logged when the event trips.
 You can even attach multiple callbacks to the same channel.
-
-    log.on('contentload', function (data) {
-        analytics.report(data);
-    });
+```javascript
+log.on('contentload', function (data) {
+    analytics.report(data);
+});
+```
 
 #### Trigger events
 Define your behavior once and trigger it multiple times.
-
-    log('contentload', {
-        how: 'scroll',
-        speed: 851
-    });
+```javascript
+log('contentload', {
+    how: 'scroll',
+    speed: 851
+});
+```
 
 #### Debug a subsystem
 Get the logging information you care about with timestamps of when it happened.
 Every log entry has a timestamp so you can tell when events happened.
-
-    log.readback('gallery');
-    log.readback('gallery', true); // Pretty-print
+```javascript
+log.readback('gallery');
+log.readback('gallery', true); // Pretty-print
+```
 
 Quickly check on what log channels are in use.
-
-    log.readback.channels(); // Array of channel names
-    log.readback.channels(true); // Pretty-print
+```javascript
+log.readback.channels(); // Array of channel names
+log.readback.channels(true); // Pretty-print
+```
 
 #### View all events in order
 The master record contains all log entries in order.
-
-    log.readback.master();
-    log.readback.master(true); // Pretty-print
+```javascript
+log.readback.master();
+log.readback.master(true); // Pretty-print
+```
 
 #### Remove side-effects
 You can disable all existing callbacks for a single channel.
-
-    log.off('scroll');
+```javascript
+log.off('scroll');
+```
 
 #### Analyzing entries
 All log entries take the form:
-```js
+```javascript
 {
     time: // timestamp when entry was logged
     data: // the logged data
