@@ -4,7 +4,7 @@
     "cobbdb <cobbdb@gmail.com>"
   ],
   "description": "Plugable front-end logging.",
-  "main": "dist/global/lumberjack.min.js",
+  "main": "dist/lumberjack.min.js",
   "moduleType": [
     "globals"
   ],

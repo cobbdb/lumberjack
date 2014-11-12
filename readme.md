@@ -2,9 +2,10 @@
 
 [![Bower version](https://badge.fury.io/bo/lumberjack.svg)](http://badge.fury.io/bo/lumberjack) [![NPM version](https://badge.fury.io/js/lumberjackjs.svg)](http://badge.fury.io/js/lumberjackjs)
 
-Plugable front-end logging.
+Plugable JavaScript logging.
 
     $ bower install lumberjack
+    $ npm install lumberjackjs
 
 -------------
 #### Creating a new Lumberjack

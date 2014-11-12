@@ -3,7 +3,7 @@ module.exports = function (grunt) {
         uglify: {
             build: {
                 files: {
-                    'dist/global/lumberjack.min.js': 'bin/lumberjack.js'
+                    'dist/lumberjack.min.js': 'bin/lumberjack.js'
                 }
             }
         }

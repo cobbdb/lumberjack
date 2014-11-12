@@ -10,11 +10,6 @@ module.exports = function (grunt) {
                         standalone: 'Lumberjack'
                     }
                 }
-            },
-            module: {
-                files: {
-                    'dist/module/lumberjack.js': 'src/lumberjack.js'
-                }
             }
         }
     });

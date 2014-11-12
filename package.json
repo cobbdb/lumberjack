@@ -1,8 +1,8 @@
 {
   "name": "lumberjackjs",
-  "version": "1.0.12",
-  "description": "Plugable front-end logging.",
-  "main": "dist/module/lumberjack.js",
+  "version": "1.0.13",
+  "description": "Plugable JavaScript logging.",
+  "main": "src/lumberjack.js",
   "scripts": {
     "test": "grunt jasmine:global"
   },
