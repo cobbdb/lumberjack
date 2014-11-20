@@ -141,15 +141,19 @@ describe('Lumberjack()', function () {
     describe('log.clear()', function () {
         it('clears master log', function () {
             log('test', 'data');
+            expect(log.readback('test').length).toEqual(1);
             expect(log.readback.master().length).toEqual(1);
             log.clear();
+            expect(log.readback('test').length).toEqual(0);
             expect(log.readback.master().length).toEqual(0);
         });
         it('clears a channel log', function () {
             log('test', 'data');
             expect(log.readback('test').length).toEqual(1);
+            expect(log.readback.master().length).toEqual(1);
             log.clear('test');
             expect(log.readback('test').length).toEqual(0);
+            expect(log.readback.master().length).toEqual(1);
         });
         it('does nothing on bad channel name', function () {
             expect(log.readback('badchannel').length).toEqual(0);

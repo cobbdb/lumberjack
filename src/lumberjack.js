@@ -71,6 +71,7 @@ module.exports = function (enabled) {
         if (channel) {
             record[channel] = [];
         } else {
+            record = {};
             master = [];
         }
     };
