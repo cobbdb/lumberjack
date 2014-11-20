@@ -63,6 +63,19 @@ module.exports = function (enabled) {
     };
 
     /**
+     * ## log.clear([channel])
+     * Clear all data from a the log.
+     * @param {String} [channel] Name of a channel.
+     */
+    log.clear = function (channel) {
+        if (channel) {
+            record[channel] = [];
+        } else {
+            master = [];
+        }
+    };
+
+    /**
      * ## log.readback(channel, [pretty])
      * Fetch the log of an channel.
      * @param {String} channel A string describing this channel.

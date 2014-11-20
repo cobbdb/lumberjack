@@ -34,6 +34,16 @@ can be an Object, String, Number, or Boolean.
 log('signin', 'User has finished signing in.');
 ```
 
+#### Clear log data
+Log data may be reset manually for either a single channel or
+the entire log.
+```javascript
+// Clears all log data.
+log.clear();
+// Clears only the 'a-channel' data.
+log.clear('a-channel');
+```
+
 #### Attach some callbacks
 You can attach side-effects to your log channels for analytics tools.
 The data object is whatever data gets logged when the event trips.
