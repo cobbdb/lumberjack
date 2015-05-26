@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>lumberjack.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="doc-style.css" />
+  <script src="doc-filelist.js"></script>
+  <script>
+    var relativeDir = "", thisFile = "export/devel/cms_alpha//lumberjack/src/lumberjack.js", defaultSidebar = true;
+  </script>
+  <script src="doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h1">
+        <a href="#lumberjack">Lumberjack</a>
+      </div>
+      <div class="heading h2">
+        <a href="#log(channel%2C%20data)">log(channel, data)</a>
+      </div>
+      <div class="heading h2">
+        <a href="#log.clear(%5Bchannel%5D)">log.clear([channel])</a>
+      </div>
+      <div class="heading h2">
+        <a href="#log.readback(channel%2C%20%5Bpretty%5D)">log.readback(channel, [pretty])</a>
+      </div>
+      <div class="heading h2">
+        <a href="#log.readback.master(%5Bpretty%5D)">log.readback.master([pretty])</a>
+      </div>
+      <div class="heading h2">
+        <a href="#log.readback.channels(%5Bpretty%5D)">log.readback.channels([pretty])</a>
+      </div>
+      <div class="heading h2">
+        <a href="#log.flush(%5Bchannel%5D)">log.flush([channel])</a>
+      </div>
+      <div class="heading h2">
+        <a href="#log.on(channel%2C%20cb)">log.on(channel, cb)</a>
+      </div>
+      <div class="heading h2">
+        <a href="#log.off(channel)">log.off(channel)</a>
+      </div>
+      <div class="heading h2">
+        <a href="#log.enable()">log.enable()</a>
+      </div>
+      <div class="heading h2">
+        <a href="#log.disable()">log.disable()</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="lumberjack">
+  <h1>
+    <a href="#lumberjack" name="lumberjack" class="pilcrow">&#182;</a>
+    Lumberjack
+  </h1>
+</div>
+
+
+<p>Set <code>localStorage.lumberjack</code> to <code>on</code> to enable logging.</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">enabled</span>
+      <span class="dox_type">Boolean</span>
+      <span>True to force logging regardless of
+the localStorage setting.</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Object</span>
+      <span>A new Lumberjack.</span>
+    </div>
+    <div class="dox_tag_title">See</div>
+    <div class="dox_tag_detail">
+      <a href="http://github.com/cobbdb/lumberjack
+">GitHub-Page</a>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">enabled</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">log</span><span class="p">,</span>
+        <span class="nx">record</span> <span class="o">=</span> <span class="p">{},</span>
+        <span class="nx">cbQueue</span> <span class="o">=</span> <span class="p">{},</span>
+        <span class="nx">master</span> <span class="o">=</span> <span class="p">[],</span>
+        <span class="nx">ls</span> <span class="o">=</span> <span class="nx">global</span><span class="p">.</span><span class="nx">localStorage</span> <span class="o">||</span> <span class="p">{};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="log(channel%2C%20data)">
+  <h2>
+    <a href="#log(channel%2C%20data)" name="log(channel%2C%20data)" class="pilcrow">&#182;</a>
+    log(channel, data)
+  </h2>
+</div>
+
+
+<p>Record a log entry for an channel.</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">channel</span>
+      <span class="dox_type">String</span>
+      <span>A string describing this channel.</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">data</span>
+      <span class="dox_type">String</span>
+      <span class="dox_type">Object</span>
+      <span class="dox_type">Number</span>
+      <span class="dox_type">Boolean</span>
+      <span>Some data to log.</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">log</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">channel</span><span class="p">,</span> <span class="nx">entry</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">channelValid</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">channel</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">dataType</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">data</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">dataValid</span> <span class="o">=</span> <span class="nx">dataType</span> <span class="o">!==</span> <span class="s1">&#39;undefined&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">dataType</span> <span class="o">!==</span> <span class="s1">&#39;function&#39;</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">ls</span><span class="p">.</span><span class="nx">lumberjack</span> <span class="o">!==</span> <span class="s1">&#39;on&#39;</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">enabled</span><span class="p">)</span> <span class="p">{</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>Do nothing unless enabled.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">channelValid</span> <span class="o">&amp;&amp;</span> <span class="nx">dataValid</span><span class="p">)</span> <span class="p">{</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>All log entries take the form of:</p>
+
+
+<div class="highlight"><pre><code> <span class="p">{</span>
+     <span class="nx">time</span><span class="o">:</span> <span class="c1">// timestamp when entry was logged</span>
+     <span class="nx">data</span><span class="o">:</span> <span class="c1">// the logged data</span>
+     <span class="nx">channel</span><span class="o">:</span> <span class="c1">// channel of entry</span>
+     <span class="nx">id</span><span class="o">:</span> <span class="c1">// id of entry in master record</span>
+ <span class="p">}</span>
+</code></pre></div>
+
+
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nx">entry</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">time</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(),</span>
+                <span class="nx">data</span><span class="o">:</span> <span class="nx">data</span><span class="p">,</span>
+                <span class="nx">channel</span><span class="o">:</span> <span class="nx">channel</span><span class="p">,</span>
+                <span class="nx">id</span><span class="o">:</span> <span class="nx">master</span><span class="p">.</span><span class="nx">length</span>
+            <span class="p">};</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>Record the channel.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nx">record</span><span class="p">[</span><span class="nx">channel</span><span class="p">]</span> <span class="o">=</span> <span class="nx">record</span><span class="p">[</span><span class="nx">channel</span><span class="p">]</span> <span class="o">||</span> <span class="p">[]</span>
+            <span class="nx">record</span><span class="p">[</span><span class="nx">channel</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">entry</span><span class="p">);</span>
+            <span class="nx">master</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">entry</span><span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>Perform any attached callbacks.</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="nx">cbQueue</span><span class="p">[</span><span class="nx">channel</span><span class="p">]</span> <span class="o">=</span> <span class="nx">cbQueue</span><span class="p">[</span><span class="nx">channel</span><span class="p">]</span> <span class="o">||</span> <span class="p">[];</span>
+            <span class="nx">len</span> <span class="o">=</span> <span class="nx">cbQueue</span><span class="p">[</span><span class="nx">channel</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">cbQueue</span><span class="p">[</span><span class="nx">channel</span><span class="p">][</span><span class="nx">i</span><span class="p">](</span><span class="nx">data</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Lumberjack Error: log(channel, data) requires an channel {String} and a payload {String|Object|Number|Boolean}.&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="log.clear(%5Bchannel%5D)">
+  <h2>
+    <a href="#log.clear(%5Bchannel%5D)" name="log.clear(%5Bchannel%5D)" class="pilcrow">&#182;</a>
+    log.clear([channel])
+  </h2>
+</div>
+
+
+<p>Clear all data from a the log.</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">[channel]</span>
+      <span class="dox_type">String</span>
+      <span>Name of a channel.</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">clear</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">channel</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">channel</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">record</span><span class="p">[</span><span class="nx">channel</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">record</span> <span class="o">=</span> <span class="p">{};</span>
+            <span class="nx">master</span> <span class="o">=</span> <span class="p">[];</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="log.readback(channel%2C%20%5Bpretty%5D)">
+  <h2>
+    <a href="#log.readback(channel%2C%20%5Bpretty%5D)" name="log.readback(channel%2C%20%5Bpretty%5D)" class="pilcrow">&#182;</a>
+    log.readback(channel, [pretty])
+  </h2>
+</div>
+
+
+<p>Fetch the log of an channel.</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">channel</span>
+      <span class="dox_type">String</span>
+      <span>A string describing this channel.</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">[pretty]</span>
+      <span class="dox_type">Boolean</span>
+      <span>True to create a formatted string result.</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Array</span>
+      <span class="dox_type">String</span>
+      <span>This channel's current record.</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">readback</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">pretty</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">channelValid</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">channel</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">channelValid</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">pretty</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">record</span><span class="p">[</span><span class="nx">channel</span><span class="p">],</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="nx">record</span><span class="p">[</span><span class="nx">channel</span><span class="p">]</span> <span class="o">||</span> <span class="p">[];</span>
+        <span class="p">}</span>
+        <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;log.readback(channel, pretty) requires an channel {String}.&#39;</span><span class="p">);</span>
+    <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="log.readback.master(%5Bpretty%5D)">
+  <h2>
+    <a href="#log.readback.master(%5Bpretty%5D)" name="log.readback.master(%5Bpretty%5D)" class="pilcrow">&#182;</a>
+    log.readback.master([pretty])
+  </h2>
+</div>
+
+
+<p>Get a full readback of all channels' entries.</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">[pretty]</span>
+      <span class="dox_type">Boolean</span>
+      <span>True to create a formatted string result.</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Array</span>
+      <span class="dox_type">String</span>
+      <span>This log's master record.</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">readback</span><span class="p">.</span><span class="nx">master</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">pretty</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">pretty</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">master</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">master</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="log.readback.channels(%5Bpretty%5D)">
+  <h2>
+    <a href="#log.readback.channels(%5Bpretty%5D)" name="log.readback.channels(%5Bpretty%5D)" class="pilcrow">&#182;</a>
+    log.readback.channels([pretty])
+  </h2>
+</div>
+
+
+<p>Fetch list of log channels currently in use.</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">[pretty]</span>
+      <span class="dox_type">Boolean</span>
+      <span>True to create a formatted string result.</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Array</span>
+      <span class="dox_type">String</span>
+      <span>This log's set of used channels.</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">readback</span><span class="p">.</span><span class="nx">channels</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">pretty</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">keys</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">record</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">pretty</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">keys</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">keys</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="log.flush(%5Bchannel%5D)">
+  <h2>
+    <a href="#log.flush(%5Bchannel%5D)" name="log.flush(%5Bchannel%5D)" class="pilcrow">&#182;</a>
+    log.flush([channel])
+  </h2>
+</div>
+
+
+<p>Flush all logs from a single channel or from the entire
+system if no channel name is provided.</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">[channel]</span>
+      <span class="dox_type">String</span>
+      <span>Optional name of channel to flush.</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Array
+</span>
+      <span>{Array}</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">flush</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">channel</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">logs</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">channel</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">logs</span> <span class="o">=</span> <span class="nx">record</span><span class="p">[</span><span class="nx">channel</span><span class="p">];</span>
+            <span class="nx">record</span><span class="p">[</span><span class="nx">channel</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">record</span> <span class="o">=</span> <span class="p">{};</span>
+            <span class="nx">master</span> <span class="o">=</span> <span class="p">[];</span>
+            <span class="nx">logs</span> <span class="o">=</span> <span class="p">[];</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">logs</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="log.on(channel%2C%20cb)">
+  <h2>
+    <a href="#log.on(channel%2C%20cb)" name="log.on(channel%2C%20cb)" class="pilcrow">&#182;</a>
+    log.on(channel, cb)
+  </h2>
+</div>
+
+
+<p>Attach a callback to run anytime a channel is logged to.</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">channel</span>
+      <span class="dox_type">String</span>
+      <span>A string describing this channel.</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">cb</span>
+      <span class="dox_type">Function</span>
+      <span>The callback.</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">on</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">channelValid</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">channel</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">cbValid</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">cb</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">channelValid</span> <span class="o">&amp;&amp;</span> <span class="nx">cbValid</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">cbQueue</span><span class="p">[</span><span class="nx">channel</span><span class="p">]</span> <span class="o">=</span> <span class="nx">cbQueue</span><span class="p">[</span><span class="nx">channel</span><span class="p">]</span> <span class="o">||</span> <span class="p">[];</span>
+            <span class="nx">cbQueue</span><span class="p">[</span><span class="nx">channel</span><span class="p">].</span><span class="nx">push</span><span class="p">(</span><span class="nx">cb</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;log.on(channel, cb) requires an channel {String} and a callback {Function}.&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="log.off(channel)">
+  <h2>
+    <a href="#log.off(channel)" name="log.off(channel)" class="pilcrow">&#182;</a>
+    log.off(channel)
+  </h2>
+</div>
+
+
+<p>Disable side-effects for a given channel.</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">channel</span>
+      <span class="dox_type">String</span>
+      <span>A string describing this channel.</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">off</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">channel</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">channelValid</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">channel</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">channelValid</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">cbQueue</span><span class="p">[</span><span class="nx">channel</span><span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;log.off(channel) requires an channel {String}.&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="log.enable()">
+  <h2>
+    <a href="#log.enable()" name="log.enable()" class="pilcrow">&#182;</a>
+    log.enable()
+  </h2>
+</div>
+
+
+<p>Activate logging regardless of previous settings.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">enable</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">enabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="log.disable()">
+  <h2>
+    <a href="#log.disable()" name="log.disable()" class="pilcrow">&#182;</a>
+    log.disable()
+  </h2>
+</div>
+
+
+<p>Force logging off.</p>
+  </div>
+  <div class="body">
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">log</span><span class="p">.</span><span class="nx">disable</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">enabled</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">};</span>
+
+    <span class="k">return</span> <span class="nx">log</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
