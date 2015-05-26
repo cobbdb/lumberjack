@@ -122,6 +122,26 @@ module.exports = function (enabled) {
     };
 
     /**
+     * ## log.flush([channel])
+     * Flush all logs from a single channel or from the entire
+     * system if no channel name is provided.
+     * @param {String} [channel] Optional name of channel to flush.
+     * @return {Array}
+     */
+    log.flush = function (channel) {
+        var logs;
+        if (channel) {
+            logs = record[channel];
+            record[channel] = [];
+        } else {
+            record = {};
+            master = [];
+            logs = [];
+        }
+        return logs;
+    };
+
+    /**
      * ## log.on(channel, cb)
      * Attach a callback to run anytime a channel is logged to.
      * @param {String} channel A string describing this channel.

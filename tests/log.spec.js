@@ -307,4 +307,21 @@ describe('Lumberjack()', function () {
             expect(out.length).toEqual(1);
         });
     });
+
+    describe('log.flush()', function () {
+        it('can flush a single channel', function () {
+            log('test', 'testmsg');
+            expect(log.readback('test').length).toEqual(1, 'pre test');
+            var out = log.flush('test');
+            expect(out.length).toEqual(1, 'out test');
+            expect(log.readback('test').length).toEqual(0, 'post test');
+        });
+        it('can flush all channels', function () {
+            log('test', 'testmsg');
+            expect(log.readback.master().length).toEqual(1, 'pre test');
+            log.flush();
+            expect(log.readback('test').length).toEqual(0, 'post test');
+            expect(log.readback.master().length).toEqual(0, 'post test master');
+        });
+    });
 });
